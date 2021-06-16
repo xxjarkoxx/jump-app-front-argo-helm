@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: front-javascript
+    version: v1
+    project: {{ .Values.project | default "jump-app" }}
+  name: front-javascript
+spec:
+  replicas: {{ .Values.pod.replicas | default 3 }}
+  selector:
+    matchLabels:
+      app: front-javascript
+  template:
+    metadata:
+      labels:
+        name: front-javascript
+        app: front-javascript
+        version: v1
+    spec:
+      containers:
+      - image: image-registry.openshift-image-registry.svc:5000/jump-app-cicd/front-javascript:develop
+        imagePullPolicy: Always
+        name: front-javascript
+        ports:
+          - containerPort: {{ .Values.pod.port | default 3000 }}
+            protocol: {{ .Values.pod.protocol | default "TCP" }}
+        resources: {}

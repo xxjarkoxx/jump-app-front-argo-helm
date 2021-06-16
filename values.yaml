@@ -1,0 +1,9 @@
+project: san01-jump-app
+pod:
+  replicas: 1
+  port: 3000
+  protocol: TCP
+service:
+  port: 8080
+route:
+  security: Allow
